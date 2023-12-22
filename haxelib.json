@@ -1,0 +1,12 @@
+{
+	"name": "linc_discordsdk",
+	"license": "MIT",
+	"tags": ["Discord", "GameSDK", "Haxe"],
+	"description": "Discord GameSDK support for Haxe.",
+	"contributors": ["ahika462", "letsgoawaydev"],
+	"releasenote": "Windows64 fix.",
+	"version": "1.0.0",
+	"url": "https://github.com/ahika462/linc_discordsdk",
+	"dependencies": {},
+	"classPath": "src"
+}
