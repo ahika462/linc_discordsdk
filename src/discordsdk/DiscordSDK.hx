@@ -16,18 +16,43 @@ class DiscordSDK {
 	}
 
 	public static function makeParty(id:String = "", joinId:String = "", spectateId:String = "", currentSize:Int = 1, maxSize:Int = 10, onPartyMake:(result:Result)->Void) {
+		if (id == null)
+			id = "";
+		if (joinId == null)
+			joinId = "";
+		if (spectateId == null)
+			spectateId = "";
+
 		_DiscordSDK.makeParty(cast id, cast joinId, cast spectateId, currentSize, maxSize, onPartyMake);
 	}
 
 	public static function registerCommand(url:String = "") {
+		if (url == null)
+			url = "";
+
 		_DiscordSDK.registerCommand(cast url);
 	}
 
 	public static function init(clientId:String, onInit:()->Void, onError:(result:Result)->Void) {
+		if (clientId == null)
+			clientId = "";
+		
 		_DiscordSDK.init(Int64Helper.parseString(clientId), onInit, onError);
 	}
 
 	public static function updateActivity(details:String = "", state:String = "", smallImage:String = "", smallText:String = "", largeImage:String = "", largeText:String = "", type:ActivityType = Playing, startTimestamp:Float = 0, endTimestamp:Float = 0, callback:()->Void = null) {
+		if (details == null)
+			details = "";
+		if (state == null)
+			state = "";
+		if (smallImage == null)
+			smallImage = "";
+		if (smallText == null)
+			smallText = "";
+		if (largeImage == null)
+			largeImage = "";
+		if (largeText == null)
+			largeText = "";
 		if (callback == null)
 			callback = function() {}
 
@@ -118,6 +143,7 @@ enum abstract Result(Int) from Int to Int {
 	var TransactionAborted = 43;
 }
 
+@:native("discord::ActivityType")
 enum abstract ActivityType(Int) from Int to Int {
 	var Playing = 0;
 	var Streaming = 1;
