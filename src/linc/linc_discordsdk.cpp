@@ -74,13 +74,19 @@ namespace linc {
 			discordsdk::onInit = std::move(onInit);
 			discordsdk::onError = std::move(onError);
 			onInit();
+
 			active = true;
 		}
 
 		void shutdown() {
+			if (!active)
+				return;
+
 			active = false;
+			
+			core->~Core();
 			delete (core);
-        	core = nullptr;
+			core = nullptr;
 		}
 	}
 }
