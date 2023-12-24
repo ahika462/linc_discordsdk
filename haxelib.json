@@ -4,7 +4,7 @@
 	"tags": ["Discord", "GameSDK", "Haxe"],
 	"description": "Discord GameSDK support for Haxe.",
 	"contributors": ["ahika462", "letsgoawaydev"],
-	"releasenote": "Windows64 fix.",
+	"releasenote": "Shutdown function and activity typedefs.",
 	"version": "1.0.7",
 	"url": "https://github.com/ahika462/linc_discordsdk",
 	"dependencies": {},
