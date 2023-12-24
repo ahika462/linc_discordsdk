@@ -63,6 +63,9 @@ namespace linc {
 		}
 
 		void init(int64_t clientId, Dynamic& onInit, Dynamic& onError) {
+			if (active)
+				return;
+				
 			auto result = discord::Core::Create(clientId, DiscordCreateFlags_Default, &core);
 			if (!core) {
 				onError((int)result);
