@@ -6,21 +6,27 @@ namespace linc {
 	namespace discordsdk {
 		discord::Core* core{};
 		discord::Activity activity{};
+		bool active = false;
 
 		Dynamic onInit; // using dynamic for functions probably is not a good idea, but eh 
 		Dynamic onError;
 
 		void runCallbacks() {
-			core->RunCallbacks();
+			if (active)
+				core->RunCallbacks();
 		}
 
 		void onActivityJoinRequest(const std::function<void(const char*, int64_t, const char*)> callback) {
-			core->ActivityManager().OnActivityJoinRequest.Connect([callback = std::move(callback)](discord::User user){
-					callback(user.GetUsername(), user.GetId(), user.GetAvatar());
-			});
+			if (active)
+				core->ActivityManager().OnActivityJoinRequest.Connect([callback = std::move(callback)](discord::User user){
+						callback(user.GetUsername(), user.GetId(), user.GetAvatar());
+				});
 		}
 
 		void makeParty(const char* id, const char* joinId, const char* spectateId, int currentSize, int maxSize, Dynamic& onPartyMake) {
+			if (!active)
+				return;
+
 			activity.GetParty().SetId(id);
 			activity.GetParty().GetSize().SetCurrentSize(currentSize == 0 ? 1 : currentSize);
 			activity.GetParty().GetSize().SetMaxSize(maxSize);
@@ -32,10 +38,14 @@ namespace linc {
 		}
 
 		void registerCommand(const char* url) {
-			core->ActivityManager().RegisterCommand(url);
+			if (active)
+				core->ActivityManager().RegisterCommand(url);
 		}
 
 		void updateActivity(const char* details, const char* state, const char* smallImage, const char* smallText, const char* largeImage, const char* largeText, int type, float startTimestamp, float endTimestamp, Dynamic& callback) {
+			if (!active)
+				return;
+
 			discord::Activity& activity = discordsdk::activity; // too lazy kek
 			activity.SetDetails(details);
 			activity.SetState(state);
@@ -61,11 +71,13 @@ namespace linc {
 			discordsdk::onInit = std::move(onInit);
 			discordsdk::onError = std::move(onError);
 			onInit();
+			active = true;
 		}
 
 		void shutdown() {
-			/*delete (core);
-        	core = nullptr;*/
+			active = false;
+			delete (core);
+        	core = nullptr;
 		}
 	}
 }

@@ -104,7 +104,7 @@ class DiscordSDK {
 	}
 
 	/**
-	 * Shutdown GameSDK (maybe soon).
+	 * Shutdown GameSDK.
 	 */
 	public static function shutdown() {
 		_DiscordSDK.shutdown();
