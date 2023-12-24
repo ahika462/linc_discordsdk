@@ -38,6 +38,8 @@ namespace linc {
 
 		extern void init(int64_t clientId, Dynamic& onInit, Dynamic& onError);
 
+		extern void shutdown();
+
 	}
 
 }

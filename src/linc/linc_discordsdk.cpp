@@ -52,7 +52,7 @@ namespace linc {
 			});
 		}
 
-		void init(int64_t clientId, Dynamic& onInit, Dynamic& onError){
+		void init(int64_t clientId, Dynamic& onInit, Dynamic& onError) {
 			auto result = discord::Core::Create(clientId, DiscordCreateFlags_Default, &core);
 			if (!core) {
 				onError((int)result);
@@ -61,6 +61,11 @@ namespace linc {
 			discordsdk::onInit = std::move(onInit);
 			discordsdk::onError = std::move(onError);
 			onInit();
+		}
+
+		void shutdown() {
+			/*delete (core);
+        	core = nullptr;*/
 		}
 	}
 }
