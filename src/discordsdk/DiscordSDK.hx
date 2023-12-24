@@ -113,6 +113,10 @@ class DiscordSDK {
 	public static function shutdown() {
 		_DiscordSDK.shutdown();
 	}
+
+	public static function toggleOverlay(enabled:Bool) {
+		_DiscordSDK.toggleOverlay(enabled);
+	}
 }
 
 @:keep
@@ -151,6 +155,9 @@ extern private class _DiscordSDK {
 
 	@:native("linc::discordsdk::shutdown")
 	static function shutdown():Void;
+
+	@:native("linc::discordsdk::toggleOverlay")
+	static function toggleOverlay(enabled:Bool):Void;
 }
 
 @:native("discord::Result")

@@ -88,5 +88,15 @@ namespace linc {
 			delete (core);
 			core = nullptr;
 		}
+
+		void toggleOverlayCallback(discord::Result result) {
+			// i'm dumb
+		}
+		void toggleOverlay(bool enabled) {
+			if (!active)
+				return;
+
+			core->OverlayManager().SetLocked(enabled, toggleOverlayCallback);
+		}
 	}
 }

@@ -40,6 +40,8 @@ namespace linc {
 
 		extern void shutdown();
 
+		extern void toggleOverlay(bool enabled);
+
 	}
 
 }
