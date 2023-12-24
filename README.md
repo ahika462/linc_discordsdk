@@ -15,8 +15,15 @@ class Main {
 	}
 
 	static function onInit() {
-		DiscordSDK.updateActivity("", "", "", "", "icon", "", Playing, Sys.time(), 0);
-
+		DiscordSDK.updateActivity({
+			assets: {
+				largeImage: "icon"
+			},
+			type: Playing,
+			timestamps: {
+				start: Date.now().getTime()
+			}
+		});
 		Thread.create(function() {
 			while (true) {
 				DiscordSDK.runCallbacks();
