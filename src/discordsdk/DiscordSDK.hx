@@ -14,6 +14,10 @@ class DiscordSDK {
 		_DiscordSDK.runCallbacks();
 	}
 
+	/**
+	 * Set custom event on activity join request.
+	 * @param callback
+	 */
 	public static function onActivityJoinRequest(callback:Function<(username:ConstCharStar, id:Int64, avatar:ConstCharStar)->Void, Abi>) {
 		_DiscordSDK.onActivityJoinRequest(callback);
 	}

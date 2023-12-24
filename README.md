@@ -24,6 +24,10 @@ class Main {
 			}
 		});
 	}
+
+	static function onError(result:Result) {
+		trace("Error " + result);
+	}
 }
 ```
 
@@ -33,3 +37,4 @@ This is work in progress, expect things to change.
 * [x] Not have race conditions
 * [x] Parties
 * [ ] Working invite callbacks'
+* [x] Shutdown

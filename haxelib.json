@@ -5,7 +5,7 @@
 	"description": "Discord GameSDK support for Haxe.",
 	"contributors": ["ahika462", "letsgoawaydev"],
 	"releasenote": "Windows64 fix.",
-	"version": "1.0.0",
+	"version": "1.0.7",
 	"url": "https://github.com/ahika462/linc_discordsdk",
 	"dependencies": {},
 	"classPath": "src"
