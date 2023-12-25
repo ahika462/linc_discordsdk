@@ -55,11 +55,9 @@ class DiscordSDK {
 	 * Initialize the GameSDK.
 	 * @param clientId Game client ID.
 	 * @param onInit Initialization callback with result return.
+	 * @param onError Error callback with result return.
 	 */
 	public static function init(clientId:String, onInit:()->Void, onError:(result:Result)->Void) {
-		if (clientId == null)
-			clientId = "";
-		
 		_DiscordSDK.init(Int64Helper.parseString(clientId), onInit, onError);
 	}
 
@@ -119,6 +117,14 @@ class DiscordSDK {
 	public static function toggleOverlay(enabled:Bool) {
 		_DiscordSDK.toggleOverlay(enabled);
 	}
+
+	public static function setSelfMute(mute:Bool) {
+		_DiscordSDK.setSelfMute(mute);
+	}
+
+	public static function getRelationship(userId:String):Int {
+		return _DiscordSDK.getRelationship(Int64Helper.parseString(userId));
+	}
 }
 
 @:keep
@@ -160,6 +166,12 @@ extern private class _DiscordSDK {
 
 	@:native("linc::discordsdk::toggleOverlay")
 	static function toggleOverlay(enabled:Bool):Void;
+
+	@:native("linc::discordsdk::setSelfMute")
+	static function setSelfMute(mute:Bool):Void;
+
+	@:native("linc::discordsdk::getRelationship")
+	static function getRelationship(userId:Int64):Int;
 }
 
 @:native("discord::Result")

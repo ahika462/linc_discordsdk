@@ -100,5 +100,17 @@ namespace linc {
 			// core->OverlayManager().OpenVoiceSettings(toggleOverlayCallback);
 			// core->OverlayManager().OpenActivityInvite(discord::ActivityActionType::Spectate, toggleOverlayCallback);
 		}
+
+		void setSelfMute(bool mute) {
+			core->VoiceManager().SetSelfMute(mute);
+		}
+
+		int getRelationship(discord::UserId userId) {
+			return 0;
+			
+			/*discord::Relationship* container;
+			core->RelationshipManager().Get(662752409986138125, container);
+			return int(container->GetType());*/
+		}
 	}
 }

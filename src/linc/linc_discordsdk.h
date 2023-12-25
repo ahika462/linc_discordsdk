@@ -42,6 +42,9 @@ namespace linc {
 
 		extern void toggleOverlay(bool enabled);
 
+		extern void setSelfMute(bool mute);
+
+		extern int getRelationship(discord::UserId userId);
 	}
 
 }
