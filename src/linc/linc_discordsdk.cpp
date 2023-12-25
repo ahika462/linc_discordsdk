@@ -66,7 +66,7 @@ namespace linc {
 			if (active)
 				return;
 				
-			auto result = discord::Core::Create(clientId, DiscordCreateFlags_Default, &core);
+			auto result = discord::Core::Create(clientId, DiscordCreateFlags_NoRequireDiscord, &core);
 			if (!core) {
 				onError((int)result);
 				return;
@@ -96,7 +96,9 @@ namespace linc {
 			if (!active)
 				return;
 
-			core->OverlayManager().SetLocked(enabled, toggleOverlayCallback);
+			core->OverlayManager().SetLocked(!enabled, toggleOverlayCallback);
+			// core->OverlayManager().OpenVoiceSettings(toggleOverlayCallback);
+			// core->OverlayManager().OpenActivityInvite(discord::ActivityActionType::Spectate, toggleOverlayCallback);
 		}
 	}
 }

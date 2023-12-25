@@ -7,6 +7,8 @@ import cpp.ConstCharStar;
 import cpp.Function;
 
 class DiscordSDK {
+	public static var resultMap:Map<Result, String> = Macro.buildMap("discordsdk.DiscordSDK.Result", true);
+
 	/**
 	 * Run all callbacks. Exactly necessary to use in `while (true)` loop.
 	 */
