@@ -8,7 +8,7 @@ namespace linc {
 		discord::Activity activity{};
 		bool active = false;
 
-		Dynamic onInit; // using dynamic for functions probably is not a good idea, but eh 
+		// Dynamic onInit; // using dynamic for functions probably is not a good idea, but eh 
 		Dynamic onError;
 
 		void runCallbacks() {
@@ -62,16 +62,16 @@ namespace linc {
 			});
 		}
 
-		void init(int64_t clientId, Dynamic& onInit, Dynamic& onError) {
+		void init(int64_t clientId, int64_t createFlags, Dynamic& onInit, Dynamic& onError) {
 			if (active)
 				return;
 				
-			auto result = discord::Core::Create(clientId, DiscordCreateFlags_NoRequireDiscord, &core);
+			auto result = discord::Core::Create(clientId, createFlags, &core);
 			if (!core) {
 				onError((int)result);
 				return;
 			}
-			discordsdk::onInit = std::move(onInit);
+			// discordsdk::onInit = std::move(onInit);
 			discordsdk::onError = std::move(onError);
 			onInit();
 
@@ -86,7 +86,7 @@ namespace linc {
 			
 			core->~Core();
 			delete (core);
-			core = nullptr;
+			core = {};
 		}
 
 		void toggleOverlayCallback(discord::Result result) {
@@ -99,18 +99,6 @@ namespace linc {
 			core->OverlayManager().SetLocked(!enabled, toggleOverlayCallback);
 			// core->OverlayManager().OpenVoiceSettings(toggleOverlayCallback);
 			// core->OverlayManager().OpenActivityInvite(discord::ActivityActionType::Spectate, toggleOverlayCallback);
-		}
-
-		void setSelfMute(bool mute) {
-			core->VoiceManager().SetSelfMute(mute);
-		}
-
-		int getRelationship(discord::UserId userId) {
-			return 0;
-			
-			/*discord::Relationship* container;
-			core->RelationshipManager().Get(662752409986138125, container);
-			return int(container->GetType());*/
 		}
 	}
 }

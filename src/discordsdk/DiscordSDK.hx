@@ -6,8 +6,15 @@ import cpp.Int64;
 import cpp.ConstCharStar;
 import cpp.Function;
 
+#if !display
+/*@:build(linc.Linc.touch())
+@:build(linc.Linc.xml('discordsdk'))*/
+@:build(discordsdk.Macro.touch())
+@:build(discordsdk.Macro.xml('discordsdk'))
+#end
+
 class DiscordSDK {
-	public static var resultMap:Map<Result, String> = Macro.buildMap("discordsdk.DiscordSDK.Result", true);
+	public static var resultMap:Map<Result, String> = Macro.buildMap('discordsdk.DiscordSDK.Result', true);
 
 	/**
 	 * Run all callbacks. Exactly necessary to use in `while (true)` loop.
@@ -33,20 +40,20 @@ class DiscordSDK {
 	 * @param maxSize Max party size.
 	 * @param onPartyMake Make party callback with result return.
 	 */
-	public static function makeParty(id:String = "", joinId:String = "", spectateId:String = "", currentSize:Int = 1, maxSize:Int = 10, onPartyMake:(result:Result)->Void) {
+	public static function makeParty(id:String = '', joinId:String = '', spectateId:String = '', currentSize:Int = 1, maxSize:Int = 10, onPartyMake:(result:Result)->Void) {
 		if (id == null)
-			id = "";
+			id = '';
 		if (joinId == null)
-			joinId = "";
+			joinId = '';
 		if (spectateId == null)
-			spectateId = "";
+			spectateId = '';
 
 		_DiscordSDK.makeParty(cast id, cast joinId, cast spectateId, currentSize, maxSize, onPartyMake);
 	}
 
-	public static function registerCommand(url:String = "") {
+	public static function registerCommand(url:String = '') {
 		if (url == null)
-			url = "";
+			url = '';
 
 		_DiscordSDK.registerCommand(cast url);
 	}
@@ -57,8 +64,8 @@ class DiscordSDK {
 	 * @param onInit Initialization callback with result return.
 	 * @param onError Error callback with result return.
 	 */
-	public static function init(clientId:String, onInit:()->Void, onError:(result:Result)->Void) {
-		_DiscordSDK.init(Int64Helper.parseString(clientId), onInit, onError);
+	public static function init(clientId:String, createFlags:CreateFlags = Default, onInit:()->Void, onError:(result:Result)->Void) {
+		_DiscordSDK.init(Int64Helper.parseString(clientId), Int64Helper.fromFloat(createFlags), onInit, onError);
 	}
 
 	/**
@@ -70,19 +77,19 @@ class DiscordSDK {
 		if (activity == null)
 			activity = {};
 		if (activity.details == null)
-			activity.details = "";
+			activity.details = '';
 		if (activity.state == null)
-			activity.state = "";
+			activity.state = '';
 		if (activity.assets == null)
 			activity.assets = {};
 		if (activity.assets.smallImage == null)
-			activity.assets.smallImage = "";
+			activity.assets.smallImage = '';
 		if (activity.assets.smallText == null)
-			activity.assets.smallText = "";
+			activity.assets.smallText = '';
 		if (activity.assets.largeImage == null)
-			activity.assets.largeImage = "";
+			activity.assets.largeImage = '';
 		if (activity.assets.largeText == null)
-			activity.assets.largeText = "";
+			activity.assets.largeText = '';
 		if (activity.type == null)
 			activity.type = Playing;
 		if (activity.timestamps == null)
@@ -108,7 +115,7 @@ class DiscordSDK {
 	}
 
 	/**
-	 * Shutdown GameSDK.
+	 * Shutdown GameSDK (can crush game).
 	 */
 	public static function shutdown() {
 		_DiscordSDK.shutdown();
@@ -117,39 +124,26 @@ class DiscordSDK {
 	public static function toggleOverlay(enabled:Bool) {
 		_DiscordSDK.toggleOverlay(enabled);
 	}
-
-	public static function setSelfMute(mute:Bool) {
-		_DiscordSDK.setSelfMute(mute);
-	}
-
-	public static function getRelationship(userId:String):Int {
-		return _DiscordSDK.getRelationship(Int64Helper.parseString(userId));
-	}
 }
 
-@:keep
 @:include('linc_discordsdk.h')
-#if !display
-@:build(linc.Linc.touch())
-@:build(linc.Linc.xml('discordsdk'))
-#end
-extern private class _DiscordSDK {
-	@:native("linc::discordsdk::runCallbacks")
+private extern class _DiscordSDK {
+	@:native('linc::discordsdk::runCallbacks')
 	static function runCallbacks():Void;
 
-	@:native("linc::discordsdk::onActivityJoinRequest")
+	@:native('linc::discordsdk::onActivityJoinRequest')
 	static function onActivityJoinRequest(callback:Function<(username:ConstCharStar, id:Int64, avatar:ConstCharStar)->Void, Abi>):Void;
 
-	@:native("linc::discordsdk::makeParty")
+	@:native('linc::discordsdk::makeParty')
 	static function makeParty(id:ConstCharStar, joinId:ConstCharStar, spectateId:ConstCharStar, currentSize:Int = 1, maxSize:Int = 10, onPartyMake:(result:Result)->Void):Void;
 
-	@:native("linc::discordsdk::registerCommand")
+	@:native('linc::discordsdk::registerCommand')
 	static function registerCommand(url:ConstCharStar):Void;
 
-	@:native("linc::discordsdk::init")
-	static function init(clientId:haxe.Int64, onInit:()->Void, onError:(result:Result)->Void):Void;
+	@:native('linc::discordsdk::init')
+	static function init(clientId:haxe.Int64, createFlags:Int64, onInit:()->Void, onError:(result:Result)->Void):Void;
 
-	@:native("linc::discordsdk::updateActivity")
+	@:native('linc::discordsdk::updateActivity')
 	static function updateActivity(details:ConstCharStar, state:ConstCharStar,
 		smallImage:ConstCharStar,
 		smallText:ConstCharStar,
@@ -161,20 +155,20 @@ extern private class _DiscordSDK {
 		callback:()->Void
 	):Void;
 
-	@:native("linc::discordsdk::shutdown")
+	@:native('linc::discordsdk::shutdown')
 	static function shutdown():Void;
 
-	@:native("linc::discordsdk::toggleOverlay")
+	@:native('linc::discordsdk::toggleOverlay')
 	static function toggleOverlay(enabled:Bool):Void;
 
-	@:native("linc::discordsdk::setSelfMute")
+	@:native('linc::discordsdk::setSelfMute')
 	static function setSelfMute(mute:Bool):Void;
 
-	@:native("linc::discordsdk::getRelationship")
+	@:native('linc::discordsdk::getRelationship')
 	static function getRelationship(userId:Int64):Int;
 }
 
-@:native("discord::Result")
+@:native('discord::Result')
 enum abstract Result(Int) from Int to Int {
 	var Ok = 0;
 	var ServiceUnavailable = 1;
@@ -242,7 +236,7 @@ typedef ActivityTimestamps = {
 	var ?end:Float;
 }
 
-@:native("discord::ActivityType")
+@:native('discord::ActivityType')
 enum abstract ActivityType(Int) from Int to Int {
 	var Playing = 0;
 	var Streaming = 1;
@@ -250,12 +244,18 @@ enum abstract ActivityType(Int) from Int to Int {
 	var Watching = 3;
 }
 
-@:native("discord::User")
+@:native('discord::User')
 extern class User {
-	@:native("discord::User::GetUsername")
+	@:native('discord::User::GetUsername')
 	function GetUsername():ConstCharStar;
-	@:native("discord::User::GetDiscriminator")
+	@:native('discord::User::GetDiscriminator')
 	function GetDiscriminator():ConstCharStar;
-	@:native("discord::User::GetAvatar")
+	@:native('discord::User::GetAvatar')
 	function GetAvatar():ConstCharStar;
+}
+
+@:native('discord::CreateFlags')
+enum abstract CreateFlags(Int) from Int to Int {
+	var Default = 0;
+	var NoRequireDiscord = 1;
 }

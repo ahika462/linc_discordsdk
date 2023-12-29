@@ -1,8 +1,11 @@
 package discordsdk;
 
+import haxe.io.Path;
+import haxe.macro.Type;
 import haxe.macro.Context;
 import haxe.macro.Expr;
 
+using haxe.macro.PositionTools;
 using haxe.macro.Tools;
 
 class Macro {
@@ -40,5 +43,41 @@ class Macro {
 			finalExpr = values.map(function(v) return macro $v{v.name} => $v{v.value});
 
 		return macro $a{finalExpr};
+	}
+
+	public static macro function touch():Array<Field> {
+		return Context.getBuildFields().concat([{
+			name: '__touch',
+			pos: Context.currentPos(),
+			doc: null,
+			meta: [],
+			access: [APrivate, AStatic, AInline],
+			kind: FVar(macro:String, macro $v{Std.string(Date.now().getTime())})
+		}]);
+	}
+
+	public static macro function xml(lib:String):Array<Field> {
+		final _pos:Position = Context.currentPos();
+		final _class:Null<Ref<ClassType>> = Context.getLocalClass();
+
+		var _sourcePath:String = Path.directory(_pos.getInfos().file);
+		if (!Path.isAbsolute(_sourcePath))
+			_sourcePath = Path.join([Sys.getCwd(), _sourcePath]);
+
+		_sourcePath = Path.normalize(_sourcePath);
+
+		final _libPath:String = Path.normalize(Path.join([_sourcePath, '../']));
+		final _libVar:String = 'LINC_${lib.toUpperCase()}_PATH';
+
+		final _define:String = '<set name="$_libVar" value="$_libPath/"/>';
+		final _importPath:String = '$${$_libVar}linc/linc_${lib}.xml';
+		final _import:String = '<include name="$_importPath" />';
+
+		_class.get().meta.add(':buildXml', [{
+			expr: EConst(CString('$_define\n$_import')),
+			pos: _pos
+		}], _pos);
+
+		return Context.getBuildFields();
 	}
 }

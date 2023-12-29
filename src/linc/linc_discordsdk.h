@@ -36,15 +36,12 @@ namespace linc {
 			Dynamic& callback
 		);
 
-		extern void init(int64_t clientId, Dynamic& onInit, Dynamic& onError);
+		extern void init(int64_t clientId, int64_t createFlags, Dynamic& onInit, Dynamic& onError);
 
 		extern void shutdown();
 
 		extern void toggleOverlay(bool enabled);
 
-		extern void setSelfMute(bool mute);
-
-		extern int getRelationship(discord::UserId userId);
 	}
 
 }
