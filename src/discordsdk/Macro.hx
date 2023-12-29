@@ -36,11 +36,11 @@ class Macro {
 			default:
 		}
 
-		var finalExpr;
-		if (invert)
-			finalExpr = values.map(function(v) return macro $v{v.value} => $v{v.name});
-		else
-			finalExpr = values.map(function(v) return macro $v{v.name} => $v{v.value});
+		final finalExpr = invert ? values.map(function(v) {
+			return macro $v{v.value} => $v{v.name}
+		}) : values.map(function(v) {
+			return macro $v{v.name} => $v{v.value}
+		});
 
 		return macro $a{finalExpr};
 	}

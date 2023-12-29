@@ -1,4 +1,4 @@
 # just envinronment stuff
 
---cpp env/cpp
 --class-path src
+--cpp dev

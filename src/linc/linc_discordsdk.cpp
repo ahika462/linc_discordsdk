@@ -8,7 +8,7 @@ namespace linc {
 		discord::Activity activity{};
 		bool active = false;
 
-		// Dynamic onInit; // using dynamic for functions probably is not a good idea, but eh 
+		Dynamic onInit; // using dynamic for functions probably is not a good idea, but eh 
 		Dynamic onError;
 
 		void runCallbacks() {
@@ -71,7 +71,7 @@ namespace linc {
 				onError((int)result);
 				return;
 			}
-			// discordsdk::onInit = std::move(onInit);
+			discordsdk::onInit = std::move(onInit);
 			discordsdk::onError = std::move(onError);
 			onInit();
 
@@ -87,18 +87,6 @@ namespace linc {
 			core->~Core();
 			delete (core);
 			core = {};
-		}
-
-		void toggleOverlayCallback(discord::Result result) {
-			// i'm dumb
-		}
-		void toggleOverlay(bool enabled) {
-			if (!active)
-				return;
-
-			core->OverlayManager().SetLocked(!enabled, toggleOverlayCallback);
-			// core->OverlayManager().OpenVoiceSettings(toggleOverlayCallback);
-			// core->OverlayManager().OpenActivityInvite(discord::ActivityActionType::Spectate, toggleOverlayCallback);
 		}
 	}
 }
