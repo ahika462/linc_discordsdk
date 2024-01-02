@@ -44,5 +44,5 @@ This is work in progress, expect things to change.
 * [x] Not have race conditions
 * [x] Parties
 * [ ] Working invite callbacks'
-* [.] Shutdown
+* [ ] Shutdown
 * [ ] Fix random crash
