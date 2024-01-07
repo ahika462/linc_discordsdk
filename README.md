@@ -41,7 +41,12 @@ class Main {
 This is work in progress, expect things to change.
 
 # Todo
-* [x] Not have race conditions
-* [x] Parties
-* [ ] Working invite callbacks'
-* [x] Shutdown
+* [] Make some functions really work
+* [] Make discordsdk.DiscordSDK.Core.countUserAchievements
+* [] Make discordsdk.DiscordSDK.Core.getCurrentLocale
+* [] Make discordsdk.DiscordSDK.Core.getCurrentBranch
+* [] Make discordsdk.DiscordSDK.Core.getOAuth2Token
+* [] Make discordsdk.DiscordSDK.Core.fetch
+* [] Make lobby manager
+* [] Make relationship manager
+* [] Make remaining stuff

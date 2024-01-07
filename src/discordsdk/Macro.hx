@@ -9,12 +9,9 @@ using haxe.macro.PositionTools;
 using haxe.macro.Tools;
 
 class Macro {
-	public static macro function buildMap(typePath:String, invert:Bool = false, ?exclude:Array<String>):Expr {
+	public static macro function buildMap(typePath:String):Expr {
 		var type = Context.getType(typePath);
 		var values = [];
-
-		if (exclude == null)
-			exclude = [];
 
 		switch (type.follow()) {
 			case TAbstract(_.get() => ab, _):
@@ -27,8 +24,7 @@ class Macro {
 									value = expr.getValue();
 								default:
 							}
-							if (exclude.indexOf(f.name) == -1) // uppercase?
-								values.push({name: f.name, value: value});
+							values.push({name: f.name, value: value});
 
 						default:
 					}
@@ -36,10 +32,8 @@ class Macro {
 			default:
 		}
 
-		final finalExpr = invert ? values.map(function(v) {
+		final finalExpr = values.map(function(v) {
 			return macro $v{v.value} => $v{v.name}
-		}) : values.map(function(v) {
-			return macro $v{v.name} => $v{v.value}
 		});
 
 		return macro $a{finalExpr};
@@ -70,7 +64,7 @@ class Macro {
 		final _libVar:String = 'LINC_${lib.toUpperCase()}_PATH';
 
 		final _define:String = '<set name="$_libVar" value="$_libPath/"/>';
-		final _importPath:String = '$${$_libVar}linc/linc_${lib}.xml';
+		final _importPath:String = '$${$_libVar}linc_${lib}.xml';
 		final _import:String = '<include name="$_importPath" />';
 
 		_class.get().meta.add(':buildXml', [{
