@@ -3,7 +3,7 @@
 	"license": "MIT",
 	"tags": ["Discord", "GameSDK", "Haxe"],
 	"description": "Discord GameSDK support for Haxe.",
-	"contributors": ["ahika462", "letsgoawaydev"],
+	"contributors": ["ahika462"],
 	"releasenote": "Shutdown function and activity typedefs.",
 	"version": "1.0.7",
 	"url": "https://github.com/ahika462/linc_discordsdk",

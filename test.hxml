@@ -1,4 +1,5 @@
 # just envinronment stuff
 
 --class-path src
---cpp dev
+--main Test
+--cpp test

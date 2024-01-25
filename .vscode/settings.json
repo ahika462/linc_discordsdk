@@ -1,8 +1,4 @@
 {
-	"workbench.colorCustomizations": {
-		"minimap.background": "#00000000",
-		"scrollbar.shadow": "#00000000"
-	},
 	"files.associations": {
 		"atomic": "cpp",
 		"bit": "cpp",
@@ -63,7 +59,6 @@
 		"xmemory": "cpp",
 		"xstring": "cpp",
 		"xtr1common": "cpp",
-		"xutility": "cpp",
-		"fstream": "cpp"
+		"xutility": "cpp"
 	}
 }
