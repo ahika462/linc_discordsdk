@@ -65,9 +65,9 @@ extern enum abstract NativeCreateFlags(Int) from Int to Int {
 @:native('discord::LogLevel')
 extern enum abstract NativeLogLevel(Int) from Int to Int {
 	var Error = 1;
-	var Warn;
-	var Info;
-	var Debug;
+	var Warn = 2;
+	var Info = 3;
+	var Debug =4 ;
 }
 
 @:native('discord::UserFlag')
@@ -88,28 +88,28 @@ extern enum abstract NativePremiumType(Int) from Int to Int {
 
 @:native('discord::ImageType')
 extern enum abstract NativeImageType(Int) from Int to Int {
-	var User;
+	var User = 0;
 }
 
 @:native('discord::ActivityType')
 extern enum abstract NativeActivityType(Int) from Int to Int {
-	var Playing;
-	var Streaming;
-	var Listening;
-	var Watching;
+	var Playing = 0;
+	var Streaming = 1;
+	var Listening = 2;
+	var Watching = 3;
 }
 
 @:native('discord::ActivityActionType')
 extern enum abstract NativeActivityActionType(Int) from Int to Int {
 	var Join = 1;
-	var Spectate;
+	var Spectate = 2;
 }
 
 @:native('discord::ActivityJoinRequestReply')
 extern enum abstract NativeActivityJoinRequestReply(Int) from Int to Int {
-	var No;
-	var Yes;
-	var Ignore;
+	var No = 0;
+	var Yes = 1;
+	var Ignore = 2;
 }
 
 @:native('discord::Status')
@@ -122,67 +122,67 @@ extern enum abstract NativeStatus(Int) from Int to Int {
 
 @:native('discord::RelationshipType')
 extern enum abstract NativeRelationshipType(Int) from Int to Int {
-	var None;
-	var Friend;
-	var Blocked;
-	var PendingIncoming;
-	var PendingOutgoing;
-	var Implicit;
+	var None = 0;
+	var Friend = 1;
+	var Blocked = 2;
+	var PendingIncoming = 3;
+	var PendingOutgoing = 4;
+	var Implicit = 5;
 }
 
 @:native('discord::LobbyType')
 extern enum abstract NativeLobbyType(Int) from Int to Int {
 	var Private = 1;
-	var Public;
+	var Public = 2;
 }
 
 @:native('discord::LobbySearchComparison')
 extern enum abstract NativeLobbySearchComparison(Int) from Int to Int {
 	var LessThanOrEqual = -2;
-	var LessThan;
-	var Equal;
-	var GreaterThan;
-	var GreaterThanOrEqual;
-	var NotEqual;
+	var LessThan = -1;
+	var Equal = 0;
+	var GreaterThan = 1;
+	var GreaterThanOrEqual = 2;
+	var NotEqual = 3;
 }
 
 @:native('discord::LobbySearchCast')
 extern enum abstract NativeLobbySearchCast(Int) from Int to Int {
 	var String = 1;
-	var Number;
+	var Number = 2;
 }
 
 @:native('discord::LobbySearchDistance')
 extern enum abstract NativeLobbySearchDistance(Int) from Int to Int {
-	var Local;
-	var Default;
-	var Extended;
-	var Global;
+	var Local = 0;
+	var Default = 1;
+	var Extended = 2;
+	var Global = 3;
 }
 
 @:native('discord::EntitlementType')
 extern enum abstract NativeEntitlementType(Int) from Int to Int {
 	var Purchase = 1;
-	var PremiumSubscription;
-	var DeveloperGift;
-	var TestModePurchase;
-	var FreePurchase;
-	var UserGift;
-	var PremiumPurchase;
+	var PremiumSubscription = 2;
+	var DeveloperGift = 3;
+	var TestModePurchase = 4;
+	var FreePurchase = 5;
+	var UserGift = 6;
+	var PremiumPurchase = 7;
 }
 
 @:native('discord::SkuType')
 extern enum abstract NativeSkuType(Int) from Int to Int {
 	var Application = 1;
-	var DLC;
-	var Consumable;
-	var Bundle;
+	var DLC = 2;
+	var Consumable = 3;
+	var Bundle = 4;
 }
 
 @:native('discord::InputModeType')
 extern enum abstract NativeInputModeType(Int) from Int to Int {
 	var VoiceActivity = 0;
-	var PushToTalk;
+	var PushToTalk = 1;
 }
 
 @:native('discord::ClientId')
@@ -216,69 +216,90 @@ extern typedef NativePath = ConstCharStar;
 @:native('discord::DateTime')
 extern typedef NativeDateTime = ConstCharStar;
 
-@:include('discord.h')
+@:include('types.h')
 @:native('discord::User')
 @:structAccess extern class NativeUser {}
 
+@:include('types.h')
 @:native('discord::OAuth2Token')
 @:structAccess extern class NativeOAuth2Token {}
 
+@:include('types.h')
 @:native('discord::ImageHandle')
 @:structAccess extern class NativeImageHandle {}
 
+@:include('types.h')
 @:native('discord::ImageDimensions')
 @:structAccess extern class NativeImageDimensions {}
 
+@:include('types.h')
 @:native('discord::ActivityTimestamps')
 @:structAccess extern class NativeActivityTimestamps {}
 
+@:include('types.h')
 @:native('discord::ActivityAssets')
 @:structAccess extern class NativeActivityAssets {}
 
+@:include('types.h')
 @:native('discord::PartySize')
 @:structAccess extern class NativePartySize {}
 
+@:include('types.h')
 @:native('discord::ActivityParty')
 @:structAccess extern class NativeActivityParty {}
 
+@:include('types.h')
 @:native('discord::ActivitySecrets')
 @:structAccess extern class NativeActivitySecrets {}
 
+@:include('types.h')
 @:native('discord::Activity')
 @:structAccess extern class NativeActivity {}
 
+@:include('types.h')
 @:native('discord::Presence')
 @:structAccess extern class NativePresence {}
 
+@:include('types.h')
 @:native('discord::Relationship')
 @:structAccess extern class NativeRelationship {}
 
+@:include('types.h')
 @:native('discord::Lobby')
 @:structAccess extern class NativeLobby {}
 
+@:include('types.h')
 @:native('discord::FileStat')
 @:structAccess extern class NativeFileStat {}
 
+@:include('types.h')
 @:native('discord::Entitlement')
 @:structAccess extern class NativeEntitlement {}
 
+@:include('types.h')
 @:native('discord::SkuPrice')
 @:structAccess extern class NativeSkuPrice {}
 
+@:include('types.h')
 @:native('discord::Sku')
 @:structAccess extern class NativeSku {}
 
+@:include('types.h')
 @:native('discord::InputMode')
 @:structAccess extern class NativeInputMode {}
 
+@:include('types.h')
 @:native('discord::UserAchievement')
 @:structAccess extern class NativeUserAchievement {}
 
+@:include('types.h')
 @:native('discord::LobbyTransaction')
 @:structAccess extern class NativeLobbyTransaction {}
 
+@:include('types.h')
 @:native('discord::LobbyMemberTransaction')
 @:structAccess extern class NativeLobbyMemberTransaction {}
 
+@:include('types.h')
 @:native('discord::LobbySearchQuery')
 @:structAccess extern class NativeLobbySearchQuery {}

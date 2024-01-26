@@ -3,3 +3,6 @@
 --class-path src
 --main Test
 --cpp test
+
+--cmd cd test
+--cmd Test.exe
